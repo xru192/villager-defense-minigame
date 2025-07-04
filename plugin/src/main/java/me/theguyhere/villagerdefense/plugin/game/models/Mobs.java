@@ -8,6 +8,7 @@ import me.theguyhere.villagerdefense.plugin.tools.ItemManager;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
@@ -39,6 +40,10 @@ public class Mobs {
         for (Entity passenger : livingEntity.getPassengers())
             passenger.remove();
 
+        AttributeInstance followRange = livingEntity.getAttribute(Attribute.GENERIC_FOLLOW_RANGE);
+        if (followRange != null) {
+            followRange.addModifier(new AttributeModifier("followBoost", 32, AttributeModifier.Operation.ADD_NUMBER));
+        }
         // Set attribute modifiers
         double difficulty = arena.getCurrentDifficulty();
         for (int i = 0; i < 3; i++) {
