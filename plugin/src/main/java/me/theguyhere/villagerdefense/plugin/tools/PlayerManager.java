@@ -46,8 +46,12 @@ public class PlayerManager {
         else player.getInventory().addItem(item);
     }
 
-    // Prepares and teleports a player into adventure mode
     public static void teleAdventure(Player player, @NotNull Location location) {
+        teleAdventure(player, location, true, true);
+    }
+
+    // Prepares and teleports a player into adventure mode
+    public static void teleAdventure(Player player, @NotNull Location location, boolean removeLevels, boolean clearInventory) {
         player.getActivePotionEffects().forEach(effect -> player.removePotionEffect(effect.getType()));
         player.setFireTicks(0);
         AttributeInstance maxHealth = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
@@ -59,12 +63,16 @@ public class PlayerManager {
         player.setAbsorptionAmount(0);
         player.setFoodLevel(20);
         player.setSaturation(20);
-        player.setExp(0);
-        player.setLevel(0);
+        if (removeLevels) {
+            player.setExp(0);
+            player.setLevel(0);
+        }
         player.setFallDistance(0);
         player.setFireTicks(0);
         player.setInvulnerable(false);
-        player.getInventory().clear();
+        if (clearInventory) {
+            player.getInventory().clear();
+        }
         player.teleport(location);
         player.setGameMode(GameMode.ADVENTURE);
         player.setGlowing(false);

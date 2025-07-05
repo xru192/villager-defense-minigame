@@ -383,9 +383,9 @@ public class Tasks {
 
 			// Revive dead players
 			for (VDPlayer p : arena.getGhosts()) {
-				PlayerManager.teleAdventure(p.getPlayer(), arena.getPlayerSpawn().getLocation());
+				PlayerManager.teleAdventure(p.getPlayer(), arena.getPlayerSpawn().getLocation(), false, false);
 				p.setStatus(PlayerStatus.ALIVE);
-				giveItems(p);
+//				giveItems(p);
 
 				Random r = new Random();
 
